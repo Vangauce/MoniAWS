@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/vertientes.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <title>comunidades</title>
+</head>
+<body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+    
+    <div class="vertientes-container">
+
+
+
+        <div class="vertientes-header">
+            <h1>Seleccione una comunidad</h1>
+        </div>
+
+
+        
+
+        {% for object in listaComunidades%}
+        
+        <div class="rectangulo rectangulo-verde">
+            <div class="contenido-rectangulo">
+                    <i class="fas fa-times-circle"></i> <!-- Icono de cruz -->
+                </a>
+                <p>{{ object.nombre }}</p>
+                <a href="{% url 'habi:listvert' object.id %}">
+                    <i class="fas fa-arrow-alt-circle-right"></i>
+                </a>
+
+                
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+
+        
+
+
+
+
+        
+        
+        
+        
+
+        <div class="cuadrado-blanco">
+            <h2>¿Qué es esto?</h2>
+            <p>Aqui puedes elegir que Comunidad revisar y ver las vertientes asociadas a cada una, para más detalles, pulsa el botón:</p>
+            <button class="boton-mismo-icono"><i class="fas fa-arrow-alt-circle-right"></i></button>
+        </div>
+        
+
+            
+
+
+
+
+            <!-- Puedes agregar más rectángulos aquí -->
+        </div>
+    </div>
+</body>
+</html>

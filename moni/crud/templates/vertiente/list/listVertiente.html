@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!--extras-->
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Agregamos estilos para la lista de vertientes -->
+    <style>
+        /* Estilos para la lista de vertientes */
+        #example {
+            background-color: white;
+            border-collapse: collapse;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        #example th, #example td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+        }
+
+        #example th {
+            background-color: #333;
+            color: white;
+        }
+
+        #example tr:nth-child(even) {
+            background-color: #f2f2f2; /* Fondo de fila alternativo */
+        }
+
+        #example tr:hover {
+            background-color: #1caa23; /* Resaltado al pasar el cursor */
+            color: white;
+        }
+        .acceder {
+            display: inline-block;
+            padding: 30px 35px; /* Aumentamos el tamaño del botón */
+            background-color: #87D91F; /* Color especifico */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1px; /* Espacio superior */
+            margin-bottom: 50px; /* Espacio inferior */
+            margin-left: 345px; /* Espacio izquierdo */
+            margin-right: 20px; /* Espacio derecho */
+        }
+        
+        .volver {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #cc4242; /* Color original */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1px; /* Espacio superior */
+            margin-bottom: 20px; /* Espacio inferior */
+            margin-left: 460px; /* Espacio izquierdo */
+        }
+        
+        .container {
+            text-align: center; /* Alineamos el contenido al centro */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alineamos a la izquierda */
+            margin-top: 20px; /* Espacio superior */
+            margin-right: auto; /* Centramos horizontalmente */
+            margin-left: auto; /* Centramos horizontalmente */
+        }
+        
+        .container h1 {
+            font-size: 24px; /* Tamaño del título */
+            margin-bottom: 10px; /* Espacio inferior del título */
+        }
+
+        /* Estilos para el menú */
+        
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centramos horizontalmente los elementos del menú */
+        }
+
+        .navbar li {
+            margin-right: 20px; /* Espacio entre elementos del menú */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+        }
+        .editar-button {
+            padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+            background-color: #ff6600; /* Color de fondo del botón (puedes cambiarlo) */
+            color: white; /* Color del texto del botón */
+            border: none; /* Quita el borde del botón si lo deseas */
+            border-radius: 5px; /* Borde redondeado del botón */
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        } 
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+    
+
+    <!-- Tu código HTML reorganizado -->
+    <div class="container">
+            <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
+            <h1 style="margin-left: 345px; margin-right: auto; margin-bottom: 1px;">Administración de Vertientes</h1>
+            <a href="{% url 'crud:newvert' %}" class="acceder">
+                <i class="bi bi-plus-circle"></i> Crear Manualmente La Vertiente
+            </a>
+            <a href="{% url 'crud:newvert' %}" class="acceder">
+                <i class="bi bi-plus-circle"></i> Crear Manualmente La Vertiente
+            </a>
+            <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
+            <h1 style="margin-left: 345px; margin-right: auto; margin-bottom: 1px;">Listado de Vertientes</h1>
+        <div class="vertientes-container">
+            <div class="card-body">
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">id</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Ubicación</th>
+                            <th>Comunidad</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Datos de vertientes -->
+                        {% for objeto in listaVertiente %}
+                        <tr>
+                            <td>{{ objeto.id }}</td>
+                            <td>{{ objeto.nombre }}</td>
+                            <td>{{ objeto.desc }}</td>
+                            <td>{{ objeto.ubicación }}</td>
+                            <td>{{ objeto.comunidad }}</td>
+                            <td>
+                                <div class="col-lg-6">
+                                    <button onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button onclick="window.location.href='{% url 'crud:deletevert' objeto.id %}'" class="editar-button">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Ajusta la posición vertical de "Volver" -->
+        <a href="{% url 'crud:index' %}" class="volver">Volver</a>
+    </div>
+    <script>
+        var table = new DataTable('#example', {
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            pagingType: 'full_numbers', // Agregamos la paginación completa
+            pageLength: 10, // Definimos la cantidad de registros por página
+        });
+    </script>
+</body>
+</html>
