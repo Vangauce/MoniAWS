@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-lxw&6j4r!nw6^et0g44xn#&anc3l&v@_f*n*#&&_rj5mxnhqx)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,14 +43,11 @@ INSTALLED_APPS = [
     'user',
     'evaluacion',
     'habitantes',
-    'mqtt_data',
     
     
 ]
 
 MIDDLEWARE = [
-    'mqtt_data.middleware.MQTTMiddleware',
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,7 +84,7 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"petelol",
+        "NAME":"databa4/10",
         "USER":"postgres",
         "PASSWORD":"1234",
         "HOST":"localhost",
@@ -150,8 +147,6 @@ AUTH_USER_MODEL='user.User'
 LOGIN_REDIRECT_URL = 'nucleo:revision'
 
 LOGOUT_REDIRECT_URL = 'nucleo:login'
-
-
 # EMAIL
 
 EMAIL_HOST='smtp.gmail.com'
@@ -160,4 +155,3 @@ EMAIL_HOST_USER='c.quilodran.ignacio@gmail.com'
 EMAIL_HOST_PASSWORD='hwcy cywn xohv wdtt'
 
 DOMAIN=''
-
